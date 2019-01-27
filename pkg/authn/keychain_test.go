@@ -22,7 +22,7 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/google/go-containerregistry/pkg/name"
+	"github.com/flant/go-containerregistry/pkg/name"
 )
 
 func TestConfigDir(t *testing.T) {

@@ -20,11 +20,11 @@ import (
 	"io"
 	"io/ioutil"
 
-	"github.com/google/go-containerregistry/pkg/v1/tarball"
+	"github.com/flant/go-containerregistry/pkg/v1/tarball"
 
 	"github.com/docker/docker/client"
-	"github.com/google/go-containerregistry/pkg/name"
-	v1 "github.com/google/go-containerregistry/pkg/v1"
+	"github.com/flant/go-containerregistry/pkg/name"
+	v1 "github.com/flant/go-containerregistry/pkg/v1"
 )
 
 // image accesses an image from a docker daemon

@@ -17,7 +17,7 @@ package publish
 import (
 	"sync"
 
-	"github.com/google/go-containerregistry/pkg/name"
+	"github.com/flant/go-containerregistry/pkg/name"
 )
 
 func newFuture(work func() (name.Reference, error)) *future {

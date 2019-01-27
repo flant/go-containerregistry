@@ -55,5 +55,5 @@ spec:
   serviceAccountName: explicit
   containers:
   - name: explicit
-    image: github.com/google/go-containerregistry/pkg/authn/k8schain/tests/explicit
+    image: github.com/flant/go-containerregistry/pkg/authn/k8schain/tests/explicit
   restartPolicy: Never

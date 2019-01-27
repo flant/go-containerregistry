@@ -40,5 +40,5 @@ spec:
   serviceAccountName: noauth
   containers:
   - name: noauth
-    image: github.com/google/go-containerregistry/pkg/authn/k8schain/tests/noauth
+    image: github.com/flant/go-containerregistry/pkg/authn/k8schain/tests/noauth
   restartPolicy: Never

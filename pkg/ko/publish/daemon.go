@@ -19,9 +19,9 @@ import (
 	"log"
 	"strings"
 
-	"github.com/google/go-containerregistry/pkg/name"
-	v1 "github.com/google/go-containerregistry/pkg/v1"
-	"github.com/google/go-containerregistry/pkg/v1/daemon"
+	"github.com/flant/go-containerregistry/pkg/name"
+	v1 "github.com/flant/go-containerregistry/pkg/v1"
+	"github.com/flant/go-containerregistry/pkg/v1/daemon"
 )
 
 const (
@@ -41,7 +41,7 @@ func NewDaemon(namer Namer, tags []string) Interface {
 
 // Publish implements publish.Interface
 func (d *demon) Publish(img v1.Image, s string) (name.Reference, error) {
-	// https://github.com/google/go-containerregistry/issues/212
+	// https://github.com/flant/go-containerregistry/issues/212
 	s = strings.ToLower(s)
 
 	h, err := img.Digest()

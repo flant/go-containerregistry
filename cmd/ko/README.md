@@ -8,13 +8,13 @@ with Kubernetes and minimal configuration.
 `ko` can be installed via:
 
 ```shell
-go get github.com/google/go-containerregistry/cmd/ko
+go get github.com/flant/go-containerregistry/cmd/ko
 ```
 
 To update your installation:
 
 ```shell
-go get -u github.com/google/go-containerregistry/cmd/ko
+go get -u github.com/flant/go-containerregistry/cmd/ko
 ```
 
 ## The `ko` Model
@@ -26,13 +26,13 @@ In Go, dependencies are expressed via blocks like:
 
 ```go
 import (
-    "github.com/google/go-containerregistry/pkg/authn"
-    "github.com/google/go-containerregistry/pkg/name"
+    "github.com/flant/go-containerregistry/pkg/authn"
+    "github.com/flant/go-containerregistry/pkg/name"
 )
 ```
 
 Similarly (as you can see above), Go binaries can be referenced via import
-paths like `github.com/google/go-containerregistry/cmd/ko`.
+paths like `github.com/flant/go-containerregistry/cmd/ko`.
 
 **One of the goals of `ko` is to make containers invisible infrastructure.**
 Simply replace image references in your Kubernetes yaml with the import path for
@@ -357,11 +357,11 @@ This produces identical output to being run within the container locally:
 
 ```shell
 ko publish -L ./cmd/ko/test
-2018/07/19 23:36:11 Using base gcr.io/distroless/base:latest for github.com/google/go-containerregistry/cmd/ko/test
-2018/07/19 23:36:12 Loading ko.local/github.com/google/go-containerregistry/cmd/ko/test:703c205bf2f405af520b40536b87aafadcf181562b8faa6690fd2992084c8577
-2018/07/19 23:36:13 Loaded ko.local/github.com/google/go-containerregistry/cmd/ko/test:703c205bf2f405af520b40536b87aafadcf181562b8faa6690fd2992084c8577
+2018/07/19 23:36:11 Using base gcr.io/distroless/base:latest for github.com/flant/go-containerregistry/cmd/ko/test
+2018/07/19 23:36:12 Loading ko.local/github.com/flant/go-containerregistry/cmd/ko/test:703c205bf2f405af520b40536b87aafadcf181562b8faa6690fd2992084c8577
+2018/07/19 23:36:13 Loaded ko.local/github.com/flant/go-containerregistry/cmd/ko/test:703c205bf2f405af520b40536b87aafadcf181562b8faa6690fd2992084c8577
 
-docker run -ti --rm ko.local/github.com/google/go-containerregistry/cmd/ko/test:703c205bf2f405af520b40536b87aafadcf181562b8faa6690fd2992084c8577
+docker run -ti --rm ko.local/github.com/flant/go-containerregistry/cmd/ko/test:703c205bf2f405af520b40536b87aafadcf181562b8faa6690fd2992084c8577
 2018/07/19 23:36:25 Hello there
 ```
 
@@ -369,7 +369,7 @@ docker run -ti --rm ko.local/github.com/google/go-containerregistry/cmd/ko/test:
 
 ```shell
 ko apply -f cmd/ko/test/test.yaml
-2018/07/19 23:38:24 Using base gcr.io/distroless/base:latest for github.com/google/go-containerregistry/cmd/ko/test
+2018/07/19 23:38:24 Using base gcr.io/distroless/base:latest for github.com/flant/go-containerregistry/cmd/ko/test
 2018/07/19 23:38:25 Publishing us.gcr.io/my-project/test-294a7bdc57d85dc6ddeef5ba38a59fe9:latest
 2018/07/19 23:38:26 mounted blob: sha256:988abcba36b5948da8baa1e3616b94c0b56da814b8f6ff3ae3ac316e375e093a
 2018/07/19 23:38:26 mounted blob: sha256:57752e7f9593cbfb7101af994b136a369ecc8174332866622db32a264f3fbefd

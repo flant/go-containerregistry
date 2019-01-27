@@ -51,7 +51,7 @@ func passthru(command string) runCmd {
 
 // addKubeCommands augments our CLI surface with a passthru delete command, and an apply
 // command that realizes the promise of ko, as outlined here:
-//    https://github.com/google/go-containerregistry/issues/80
+//    https://github.com/flant/go-containerregistry/issues/80
 func addKubeCommands(topLevel *cobra.Command) {
 	topLevel.AddCommand(&cobra.Command{
 		Use:   "delete",

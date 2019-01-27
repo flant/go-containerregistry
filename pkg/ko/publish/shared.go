@@ -17,8 +17,8 @@ package publish
 import (
 	"sync"
 
-	"github.com/google/go-containerregistry/pkg/name"
-	v1 "github.com/google/go-containerregistry/pkg/v1"
+	"github.com/flant/go-containerregistry/pkg/name"
+	v1 "github.com/flant/go-containerregistry/pkg/v1"
 )
 
 // caching wraps a publisher implementation in a layer that shares publish results

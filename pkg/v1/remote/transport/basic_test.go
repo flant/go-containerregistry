@@ -21,7 +21,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/google/go-containerregistry/pkg/authn"
+	"github.com/flant/go-containerregistry/pkg/authn"
 )
 
 func TestBasicTransport(t *testing.T) {

@@ -17,7 +17,7 @@ package build
 import (
 	"sync"
 
-	v1 "github.com/google/go-containerregistry/pkg/v1"
+	v1 "github.com/flant/go-containerregistry/pkg/v1"
 )
 
 func newFuture(work func() (v1.Image, error)) *future {

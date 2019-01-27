@@ -8,7 +8,7 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/cobra/doc"
 
-	"github.com/google/go-containerregistry/pkg/crane"
+	"github.com/flant/go-containerregistry/pkg/crane"
 )
 
 var dir string

@@ -22,10 +22,10 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/google/go-containerregistry/pkg/authn"
-	"github.com/google/go-containerregistry/pkg/ko/build"
-	"github.com/google/go-containerregistry/pkg/ko/publish"
-	"github.com/google/go-containerregistry/pkg/name"
+	"github.com/flant/go-containerregistry/pkg/authn"
+	"github.com/flant/go-containerregistry/pkg/ko/build"
+	"github.com/flant/go-containerregistry/pkg/ko/publish"
+	"github.com/flant/go-containerregistry/pkg/name"
 )
 
 func qualifyLocalImport(importpath, gopathsrc, pwd string) (string, error) {

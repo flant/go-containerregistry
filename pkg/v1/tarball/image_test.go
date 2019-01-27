@@ -17,7 +17,7 @@ package tarball
 import (
 	"testing"
 
-	"github.com/google/go-containerregistry/pkg/name"
+	"github.com/flant/go-containerregistry/pkg/name"
 )
 
 func TestManifestAndConfig(t *testing.T) {

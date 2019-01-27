@@ -18,11 +18,11 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/google/go-containerregistry/pkg/ko/build"
-	"github.com/google/go-containerregistry/pkg/ko/publish"
-	"github.com/google/go-containerregistry/pkg/name"
-	v1 "github.com/google/go-containerregistry/pkg/v1"
-	"github.com/google/go-containerregistry/pkg/v1/random"
+	"github.com/flant/go-containerregistry/pkg/ko/build"
+	"github.com/flant/go-containerregistry/pkg/ko/publish"
+	"github.com/flant/go-containerregistry/pkg/name"
+	v1 "github.com/flant/go-containerregistry/pkg/v1"
+	"github.com/flant/go-containerregistry/pkg/v1/random"
 )
 
 var (

@@ -1,9 +1,9 @@
 # go-containerregistry
 
-[![Build Status](https://travis-ci.org/google/go-containerregistry.svg?branch=master)](https://travis-ci.org/google/go-containerregistry)
-[![GoDoc](https://godoc.org/github.com/google/go-containerregistry?status.svg)](https://godoc.org/github.com/google/go-containerregistry)
-[![Go Report Card](https://goreportcard.com/badge/google/go-containerregistry)](https://goreportcard.com/report/google/go-containerregistry)
-[![Code Coverage](https://codecov.io/gh/google/go-containerregistry/branch/master/graph/badge.svg)](https://codecov.io/gh/google/go-containerregistry)
+[![Build Status](https://travis-ci.org/flant/go-containerregistry.svg?branch=master)](https://travis-ci.org/flant/go-containerregistry)
+[![GoDoc](https://godoc.org/github.com/flant/go-containerregistry?status.svg)](https://godoc.org/github.com/flant/go-containerregistry)
+[![Go Report Card](https://goreportcard.com/badge/flant/go-containerregistry)](https://goreportcard.com/report/flant/go-containerregistry)
+[![Code Coverage](https://codecov.io/gh/flant/go-containerregistry/branch/master/graph/badge.svg)](https://codecov.io/gh/flant/go-containerregistry)
 
 
 ## Introduction

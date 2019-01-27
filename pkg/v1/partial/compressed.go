@@ -17,8 +17,8 @@ package partial
 import (
 	"io"
 
-	v1 "github.com/google/go-containerregistry/pkg/v1"
-	"github.com/google/go-containerregistry/pkg/v1/v1util"
+	v1 "github.com/flant/go-containerregistry/pkg/v1"
+	"github.com/flant/go-containerregistry/pkg/v1/v1util"
 )
 
 // CompressedLayer represents the bare minimum interface a natively

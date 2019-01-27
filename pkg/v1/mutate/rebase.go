@@ -17,8 +17,8 @@ package mutate
 import (
 	"fmt"
 
-	v1 "github.com/google/go-containerregistry/pkg/v1"
-	"github.com/google/go-containerregistry/pkg/v1/empty"
+	v1 "github.com/flant/go-containerregistry/pkg/v1"
+	"github.com/flant/go-containerregistry/pkg/v1/empty"
 )
 
 func Rebase(orig, oldBase, newBase v1.Image) (v1.Image, error) {
