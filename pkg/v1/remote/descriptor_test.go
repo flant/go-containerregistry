@@ -21,7 +21,7 @@ import (
 	"net/url"
 	"testing"
 
-	"github.com/google/go-containerregistry/pkg/v1/types"
+	"github.com/flant/go-containerregistry/pkg/v1/types"
 )
 
 func TestGetSchema1(t *testing.T) {

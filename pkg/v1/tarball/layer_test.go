@@ -22,8 +22,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/google/go-cmp/cmp"
 	v1 "github.com/flant/go-containerregistry/pkg/v1"
+	"github.com/google/go-cmp/cmp"
 )
 
 func TestLayerFromFile(t *testing.T) {

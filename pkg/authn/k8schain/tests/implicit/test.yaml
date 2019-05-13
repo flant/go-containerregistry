@@ -43,5 +43,5 @@ spec:
     image: github.com/flant/go-containerregistry/pkg/authn/k8schain/tests/implicit
     args:
     # This test assumes that the KO_DOCKER_REPO is private.
-    - github.com/flant/go-containerregistry/pkg/authn/k8schain/tests/implicit
+      - github.com/flant/go-containerregistry/pkg/authn/k8schain/tests/implicit
   restartPolicy: Never

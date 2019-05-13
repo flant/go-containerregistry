@@ -22,10 +22,10 @@ import (
 	"net/url"
 	"testing"
 
+	v1 "github.com/flant/go-containerregistry/pkg/v1"
+	"github.com/flant/go-containerregistry/pkg/v1/random"
+	"github.com/flant/go-containerregistry/pkg/v1/types"
 	"github.com/google/go-cmp/cmp"
-	v1 "github.com/google/go-containerregistry/pkg/v1"
-	"github.com/google/go-containerregistry/pkg/v1/random"
-	"github.com/google/go-containerregistry/pkg/v1/types"
 )
 
 func randomIndex(t *testing.T) v1.ImageIndex {
@@ -146,7 +146,7 @@ func TestIndexRawManifestDigests(t *testing.T) {
 			}
 
 			if _, err := rmt.RawManifest(); (err != nil) != tc.wantErr {
-				t.Errorf("RawManifest() wrong error: %v, want %v: %v\n", (err != nil), tc.wantErr, err)
+				t.Errorf("RawManifest() wrong error: %v, want %v: %v\n", err != nil, tc.wantErr, err)
 			}
 		})
 	}

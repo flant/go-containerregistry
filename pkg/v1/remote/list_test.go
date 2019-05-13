@@ -21,8 +21,8 @@ import (
 	"net/url"
 	"testing"
 
+	"github.com/flant/go-containerregistry/pkg/name"
 	"github.com/google/go-cmp/cmp"
-	"github.com/google/go-containerregistry/pkg/name"
 )
 
 func TestList(t *testing.T) {
@@ -74,7 +74,7 @@ func TestList(t *testing.T) {
 
 			tags, err := List(repo)
 			if (err != nil) != tc.wantErr {
-				t.Errorf("List() wrong error: %v, want %v: %v\n", (err != nil), tc.wantErr, err)
+				t.Errorf("List() wrong error: %v, want %v: %v\n", err != nil, tc.wantErr, err)
 			}
 
 			if diff := cmp.Diff(tc.wantTags, tags); diff != "" {

@@ -17,9 +17,9 @@ package main
 import (
 	"log"
 
-	"github.com/google/go-containerregistry/pkg/authn/k8schain"
-	"github.com/google/go-containerregistry/pkg/name"
-	"github.com/google/go-containerregistry/pkg/v1/remote"
+	"github.com/flant/go-containerregistry/pkg/authn/k8schain"
+	"github.com/flant/go-containerregistry/pkg/name"
+	"github.com/flant/go-containerregistry/pkg/v1/remote"
 )
 
 func main() {

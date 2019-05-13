@@ -20,9 +20,9 @@ import (
 	"io"
 	"io/ioutil"
 
-	v1 "github.com/google/go-containerregistry/pkg/v1"
-	"github.com/google/go-containerregistry/pkg/v1/partial"
-	"github.com/google/go-containerregistry/pkg/v1/types"
+	v1 "github.com/flant/go-containerregistry/pkg/v1"
+	"github.com/flant/go-containerregistry/pkg/v1/partial"
+	"github.com/flant/go-containerregistry/pkg/v1/types"
 )
 
 var _ v1.ImageIndex = (*layoutIndex)(nil)

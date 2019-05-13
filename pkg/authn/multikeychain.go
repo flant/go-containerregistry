@@ -23,7 +23,7 @@ type multiKeychain struct {
 }
 
 // Assert that our multi-keychain implements Keychain.
-var _ (Keychain) = (*multiKeychain)(nil)
+var _ Keychain = (*multiKeychain)(nil)
 
 // NewMultiKeychain composes a list of keychains into one new keychain.
 func NewMultiKeychain(kcs ...Keychain) Keychain {

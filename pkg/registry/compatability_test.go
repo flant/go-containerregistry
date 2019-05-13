@@ -6,11 +6,11 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/google/go-containerregistry/pkg/name"
-	"github.com/google/go-containerregistry/pkg/registry"
-	"github.com/google/go-containerregistry/pkg/v1/random"
-	"github.com/google/go-containerregistry/pkg/v1/remote"
-	"github.com/google/go-containerregistry/pkg/v1/tarball"
+	"github.com/flant/go-containerregistry/pkg/name"
+	"github.com/flant/go-containerregistry/pkg/registry"
+	"github.com/flant/go-containerregistry/pkg/v1/random"
+	"github.com/flant/go-containerregistry/pkg/v1/remote"
+	"github.com/flant/go-containerregistry/pkg/v1/tarball"
 )
 
 func TestPushAndPullContainer(t *testing.T) {

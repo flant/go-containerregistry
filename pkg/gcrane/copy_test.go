@@ -18,10 +18,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/google/go-cmp/cmp"
 	"github.com/flant/go-containerregistry/pkg/name"
 	"github.com/flant/go-containerregistry/pkg/v1/google"
 	"github.com/flant/go-containerregistry/pkg/v1/types"
+	"github.com/google/go-cmp/cmp"
 )
 
 func mustRepo(s string) name.Repository {

@@ -1,18 +1,15 @@
 # go-containerregistry
 
-[![Build Status](https://travis-ci.org/flant/go-containerregistry.svg?branch=master)](https://travis-ci.org/flant/go-containerregistry)
+[![Build Status](https://travis-ci.org/google/go-containerregistry.svg?branch=master)](https://travis-ci.org/google/go-containerregistry)
 [![GoDoc](https://godoc.org/github.com/flant/go-containerregistry?status.svg)](https://godoc.org/github.com/flant/go-containerregistry)
-[![Go Report Card](https://goreportcard.com/badge/flant/go-containerregistry)](https://goreportcard.com/report/flant/go-containerregistry)
-[![Code Coverage](https://codecov.io/gh/flant/go-containerregistry/branch/master/graph/badge.svg)](https://codecov.io/gh/flant/go-containerregistry)
+[![Go Report Card](https://goreportcard.com/badge/google/go-containerregistry)](https://goreportcard.com/report/google/go-containerregistry)
+[![Code Coverage](https://codecov.io/gh/google/go-containerregistry/branch/master/graph/badge.svg)](https://codecov.io/gh/google/go-containerregistry)
 
 
 ## Introduction
 
 This is a golang library for working with container registries.
 It's largely based on the [Python library of the same name](https://github.com/google/containerregistry).
-
-The following diagram shows the main types that this library handles.
-![OCI image representation](images/ociimage.jpeg)
 
 ## Tools
 
