@@ -21,8 +21,7 @@ import (
 	"net/url"
 	"testing"
 
-	"github.com/flant/go-containerregistry/pkg/authn"
-	"github.com/flant/go-containerregistry/pkg/name"
+	"github.com/google/go-containerregistry/pkg/name"
 )
 
 func TestDelete(t *testing.T) {
@@ -52,7 +51,7 @@ func TestDelete(t *testing.T) {
 		t.Fatalf("NewTag() = %v", err)
 	}
 
-	if err := Delete(tag, authn.Anonymous, http.DefaultTransport); err != nil {
+	if err := Delete(tag); err != nil {
 		t.Errorf("Delete() = %v", err)
 	}
 }
@@ -84,7 +83,7 @@ func TestDeleteBadStatus(t *testing.T) {
 		t.Fatalf("NewTag() = %v", err)
 	}
 
-	if err := Delete(tag, authn.Anonymous, http.DefaultTransport); err == nil {
+	if err := Delete(tag); err == nil {
 		t.Error("Delete() = nil; wanted error")
 	}
 }

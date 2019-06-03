@@ -15,8 +15,6 @@
 package crane
 
 import (
-	"net/http"
-
 	"fmt"
 	"log"
 
@@ -28,6 +26,7 @@ import (
 
 func init() { Root.AddCommand(NewCmdList()) }
 
+// NewCmdList creates a new cobra.Command for the ls subcommand.
 func NewCmdList() *cobra.Command {
 	return &cobra.Command{
 		Use:   "ls",
@@ -39,17 +38,12 @@ func NewCmdList() *cobra.Command {
 
 func ls(_ *cobra.Command, args []string) {
 	r := args[0]
-	repo, err := name.NewRepository(r, name.WeakValidation)
+	repo, err := name.NewRepository(r)
 	if err != nil {
 		log.Fatalf("parsing repo %q: %v", r, err)
 	}
 
-	auth, err := authn.DefaultKeychain.Resolve(repo.Registry)
-	if err != nil {
-		log.Fatalf("getting creds for %q: %v", repo, err)
-	}
-
-	tags, err := remote.List(repo, auth, http.DefaultTransport)
+	tags, err := remote.List(repo, remote.WithAuthFromKeychain(authn.DefaultKeychain))
 	if err != nil {
 		log.Fatalf("reading tags for %q: %v", repo, err)
 	}

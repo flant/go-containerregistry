@@ -48,6 +48,20 @@ func (e *Error) Error() string {
 	}
 }
 
+// ShouldRetry returns whether the request that preceded the error should be retried.
+func (e *Error) ShouldRetry() bool {
+	if len(e.Errors) == 0 {
+		return false
+	}
+	for _, d := range e.Errors {
+		// TODO: Include other error types.
+		if d.Code != BlobUploadInvalidErrorCode {
+			return false
+		}
+	}
+	return true
+}
+
 // Diagnostic represents a single error returned by a Docker registry interaction.
 type Diagnostic struct {
 	Code    ErrorCode   `json:"code"`
@@ -87,6 +101,7 @@ const (
 	UnsupportedErrorCode         ErrorCode = "UNSUPPORTED"
 )
 
+// CheckError returns a structured error if the response status is not in codes.
 func CheckError(resp *http.Response, codes ...int) error {
 	for _, code := range codes {
 		if resp.StatusCode == code {

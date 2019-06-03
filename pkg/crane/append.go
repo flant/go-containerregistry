@@ -16,7 +16,6 @@ package crane
 
 import (
 	"log"
-	"net/http"
 
 	"github.com/flant/go-containerregistry/pkg/authn"
 	"github.com/flant/go-containerregistry/pkg/name"
@@ -28,6 +27,7 @@ import (
 
 func init() { Root.AddCommand(NewCmdAppend()) }
 
+// NewCmdAppend creates a new cobra.Command for the append subcommand.
 func NewCmdAppend() *cobra.Command {
 	var baseRef, newTag, newLayer, outFile string
 	appendCmd := &cobra.Command{
@@ -50,7 +50,7 @@ func NewCmdAppend() *cobra.Command {
 }
 
 func doAppend(src, dst, tar, output string) {
-	srcRef, err := name.ParseReference(src, name.WeakValidation)
+	srcRef, err := name.ParseReference(src)
 	if err != nil {
 		log.Fatalf("parsing reference %q: %v", src, err)
 	}
@@ -59,7 +59,7 @@ func doAppend(src, dst, tar, output string) {
 		log.Fatalf("reading image %q: %v", srcRef, err)
 	}
 
-	dstTag, err := name.NewTag(dst, name.WeakValidation)
+	dstTag, err := name.NewTag(dst)
 	if err != nil {
 		log.Fatalf("parsing tag %q: %v", dst, err)
 	}
@@ -81,12 +81,7 @@ func doAppend(src, dst, tar, output string) {
 		return
 	}
 
-	dstAuth, err := authn.DefaultKeychain.Resolve(dstTag.Context().Registry)
-	if err != nil {
-		log.Fatalf("getting creds for %q: %v", dstTag, err)
-	}
-
-	if err := remote.Write(dstTag, image, dstAuth, http.DefaultTransport); err != nil {
+	if err := remote.Write(dstTag, image, remote.WithAuthFromKeychain(authn.DefaultKeychain)); err != nil {
 		log.Fatalf("writing image %q: %v", dstTag, err)
 	}
 }

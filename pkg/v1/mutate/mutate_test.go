@@ -29,9 +29,10 @@ import (
 	"time"
 
 	"github.com/google/go-cmp/cmp"
-	v1 "github.com/flant/go-containerregistry/pkg/v1"
-	"github.com/flant/go-containerregistry/pkg/v1/stream"
-	"github.com/flant/go-containerregistry/pkg/v1/tarball"
+	v1 "github.com/google/go-containerregistry/pkg/v1"
+	"github.com/google/go-containerregistry/pkg/v1/stream"
+	"github.com/google/go-containerregistry/pkg/v1/tarball"
+	"github.com/google/go-containerregistry/pkg/v1/types"
 )
 
 func TestExtractWhiteout(t *testing.T) {
@@ -369,7 +370,7 @@ func TestAppendStreamableLayer(t *testing.T) {
 	if err != nil {
 		t.Errorf("Digest: %v", err)
 	}
-	wantDigest := "sha256:4138c8f7156b863ae1f6b08726ce020650d5445d43b13ad42d04df98e0ab1fed"
+	wantDigest := "sha256:5fa010d1a9ab2cf0125a53087aed97aa327dc845123702cb2a52c844f19cc36b"
 	if h.String() != wantDigest {
 		t.Errorf("Image digest got %q, want %q", h, wantDigest)
 	}
@@ -600,6 +601,10 @@ func (m mockLayer) Digest() (v1.Hash, error) {
 
 func (m mockLayer) DiffID() (v1.Hash, error) {
 	return v1.Hash{Algorithm: "fake", Hex: "diff id"}, nil
+}
+
+func (m mockLayer) MediaType() (types.MediaType, error) {
+	return "some-media-type", nil
 }
 
 func (m mockLayer) Size() (int64, error) { return 137438691328, nil }

@@ -17,7 +17,6 @@ package crane
 import (
 	"fmt"
 	"log"
-	"net/http"
 
 	"github.com/flant/go-containerregistry/pkg/authn"
 	"github.com/flant/go-containerregistry/pkg/name"
@@ -28,6 +27,7 @@ import (
 
 func init() { Root.AddCommand(NewCmdRebase()) }
 
+// NewCmdRebase creates a new cobra.Command for the rebase subcommand.
 func NewCmdRebase() *cobra.Command {
 	var orig, oldBase, newBase, rebased string
 	rebaseCmd := &cobra.Command{
@@ -70,7 +70,7 @@ func rebase(orig, oldBase, newBase, rebased string) {
 		log.Fatalln(err)
 	}
 
-	rebasedTag, err := name.NewTag(rebased, name.WeakValidation)
+	rebasedTag, err := name.NewTag(rebased)
 	if err != nil {
 		log.Fatalf("parsing tag %q: %v", rebased, err)
 	}
@@ -85,12 +85,7 @@ func rebase(orig, oldBase, newBase, rebased string) {
 		log.Fatalf("digesting rebased: %v", err)
 	}
 
-	auth, err := authn.DefaultKeychain.Resolve(rebasedTag.Context().Registry)
-	if err != nil {
-		log.Fatalf("getting creds for %q: %v", rebasedTag, err)
-	}
-
-	if err := remote.Write(rebasedTag, rebasedImg, auth, http.DefaultTransport); err != nil {
+	if err := remote.Write(rebasedTag, rebasedImg, remote.WithAuthFromKeychain(authn.DefaultKeychain)); err != nil {
 		log.Fatalf("writing image %q: %v", rebasedTag, err)
 	}
 	fmt.Print(dig.String())

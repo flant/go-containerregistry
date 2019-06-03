@@ -16,10 +16,12 @@ package remote
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"strings"
 	"testing"
 
 	"github.com/flant/go-containerregistry/pkg/name"
@@ -30,7 +32,7 @@ import (
 
 const bogusDigest = "sha256:deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef"
 
-func mustDigest(t *testing.T, img v1.Image) v1.Hash {
+func mustDigest(t *testing.T, img manifest) v1.Hash {
 	h, err := img.Digest()
 	if err != nil {
 		t.Fatalf("Digest() = %v", err)
@@ -46,7 +48,7 @@ func mustManifest(t *testing.T, img v1.Image) *v1.Manifest {
 	return m
 }
 
-func mustRawManifest(t *testing.T, img v1.Image) []byte {
+func mustRawManifest(t *testing.T, img manifest) []byte {
 	m, err := img.RawManifest()
 	if err != nil {
 		t.Fatalf("RawManifest() = %v", err)
@@ -162,8 +164,10 @@ func TestRawManifestDigests(t *testing.T) {
 			}
 
 			rmt := remoteImage{
-				ref:    ref,
-				client: http.DefaultClient,
+				fetcher: fetcher{
+					Ref:    ref,
+					Client: http.DefaultClient,
+				},
 			}
 
 			if _, err := rmt.RawManifest(); (err != nil) != tc.wantErr {
@@ -194,8 +198,10 @@ func TestRawManifestNotFound(t *testing.T) {
 	}
 
 	img := remoteImage{
-		ref:    mustNewTag(t, fmt.Sprintf("%s/%s:latest", u.Host, expectedRepo)),
-		client: http.DefaultClient,
+		fetcher: fetcher{
+			Ref:    mustNewTag(t, fmt.Sprintf("%s/%s:latest", u.Host, expectedRepo)),
+			Client: http.DefaultClient,
+		},
 	}
 
 	if _, err := img.RawManifest(); err == nil {
@@ -231,8 +237,10 @@ func TestRawConfigFileNotFound(t *testing.T) {
 	}
 
 	rmt := remoteImage{
-		ref:    mustNewTag(t, fmt.Sprintf("%s/%s:latest", u.Host, expectedRepo)),
-		client: http.DefaultClient,
+		fetcher: fetcher{
+			Ref:    mustNewTag(t, fmt.Sprintf("%s/%s:latest", u.Host, expectedRepo)),
+			Client: http.DefaultClient,
+		},
 	}
 
 	if _, err := rmt.RawConfigFile(); err == nil {
@@ -250,7 +258,11 @@ func TestAcceptHeaders(t *testing.T) {
 			if r.Method != http.MethodGet {
 				t.Errorf("Method; got %v, want %v", r.Method, http.MethodGet)
 			}
-			if got, want := r.Header.Get("Accept"), string(types.DockerManifestSchema2); got != want {
+			wantAccept := strings.Join([]string{
+				string(types.DockerManifestSchema2),
+				string(types.OCIManifestSchema1),
+			}, ",")
+			if got, want := r.Header.Get("Accept"), wantAccept; got != want {
 				t.Errorf("Accept header; got %v, want %v", got, want)
 			}
 			w.Write(mustRawManifest(t, img))
@@ -265,8 +277,10 @@ func TestAcceptHeaders(t *testing.T) {
 	}
 
 	rmt := &remoteImage{
-		ref:    mustNewTag(t, fmt.Sprintf("%s/%s:latest", u.Host, expectedRepo)),
-		client: http.DefaultClient,
+		fetcher: fetcher{
+			Ref:    mustNewTag(t, fmt.Sprintf("%s/%s:latest", u.Host, expectedRepo)),
+			Client: http.DefaultClient,
+		},
 	}
 	manifest, err := rmt.RawManifest()
 	if err != nil {
@@ -342,5 +356,124 @@ func TestImage(t *testing.T) {
 	}
 	if got, want := size, layerSize; want != got {
 		t.Errorf("BlobSize() = %v want %v", got, want)
+	}
+}
+
+func TestPullingManifestList(t *testing.T) {
+	idx := randomIndex(t)
+	expectedRepo := "foo/bar"
+	manifestPath := fmt.Sprintf("/v2/%s/manifests/latest", expectedRepo)
+	childDigest := mustIndexManifest(t, idx).Manifests[1].Digest
+	child := mustChild(t, idx, childDigest)
+	childPath := fmt.Sprintf("/v2/%s/manifests/%s", expectedRepo, childDigest)
+	configPath := fmt.Sprintf("/v2/%s/blobs/%s", expectedRepo, mustConfigName(t, child))
+
+	// Rewrite the index to make sure the desired platform matches the second child.
+	manifest, err := idx.IndexManifest()
+	if err != nil {
+		t.Fatal(err)
+	}
+	// Make sure the first manifest doesn't match.
+	manifest.Manifests[0].Platform = &v1.Platform{
+		Architecture: "not-real-arch",
+		OS:           "not-real-os",
+	}
+	// Make sure the second manifest does.
+	manifest.Manifests[1].Platform = &defaultPlatform
+	rawManifest, err := json.Marshal(manifest)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		switch r.URL.Path {
+		case "/v2/":
+			w.WriteHeader(http.StatusOK)
+		case manifestPath:
+			if r.Method != http.MethodGet {
+				t.Errorf("Method; got %v, want %v", r.Method, http.MethodGet)
+			}
+			w.Header().Set("Content-Type", string(mustMediaType(t, idx)))
+			w.Write(rawManifest)
+		case childPath:
+			if r.Method != http.MethodGet {
+				t.Errorf("Method; got %v, want %v", r.Method, http.MethodGet)
+			}
+			w.Write(mustRawManifest(t, child))
+		case configPath:
+			if r.Method != http.MethodGet {
+				t.Errorf("Method; got %v, want %v", r.Method, http.MethodGet)
+			}
+			w.Write(mustRawConfigFile(t, child))
+		default:
+			t.Fatalf("Unexpected path: %v", r.URL.Path)
+		}
+	}))
+	defer server.Close()
+	u, err := url.Parse(server.URL)
+	if err != nil {
+		t.Fatalf("url.Parse(%v) = %v", server.URL, err)
+	}
+
+	tag := mustNewTag(t, fmt.Sprintf("%s/%s:latest", u.Host, expectedRepo))
+	rmtChild, err := Image(tag)
+	if err != nil {
+		t.Errorf("Image() = %v", err)
+	}
+
+	// Test that child works as expected.
+	if got, want := mustRawManifest(t, rmtChild), mustRawManifest(t, child); bytes.Compare(got, want) != 0 {
+		t.Errorf("RawManifest() = %v, want %v", string(got), string(want))
+	}
+	if got, want := mustRawConfigFile(t, rmtChild), mustRawConfigFile(t, child); bytes.Compare(got, want) != 0 {
+		t.Errorf("RawConfigFile() = %v, want %v", got, want)
+	}
+}
+
+func TestPullingManifestListNoMatch(t *testing.T) {
+	idx := randomIndex(t)
+	expectedRepo := "foo/bar"
+	manifestPath := fmt.Sprintf("/v2/%s/manifests/latest", expectedRepo)
+	childDigest := mustIndexManifest(t, idx).Manifests[1].Digest
+	child := mustChild(t, idx, childDigest)
+	childPath := fmt.Sprintf("/v2/%s/manifests/%s", expectedRepo, childDigest)
+	configPath := fmt.Sprintf("/v2/%s/blobs/%s", expectedRepo, mustConfigName(t, child))
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		switch r.URL.Path {
+		case "/v2/":
+			w.WriteHeader(http.StatusOK)
+		case manifestPath:
+			if r.Method != http.MethodGet {
+				t.Errorf("Method; got %v, want %v", r.Method, http.MethodGet)
+			}
+			w.Header().Set("Content-Type", string(mustMediaType(t, idx)))
+			w.Write(mustRawManifest(t, idx))
+		case childPath:
+			if r.Method != http.MethodGet {
+				t.Errorf("Method; got %v, want %v", r.Method, http.MethodGet)
+			}
+			w.Write(mustRawManifest(t, child))
+		case configPath:
+			if r.Method != http.MethodGet {
+				t.Errorf("Method; got %v, want %v", r.Method, http.MethodGet)
+			}
+			w.Write(mustRawConfigFile(t, child))
+		default:
+			t.Fatalf("Unexpected path: %v", r.URL.Path)
+		}
+	}))
+	defer server.Close()
+	u, err := url.Parse(server.URL)
+	if err != nil {
+		t.Fatalf("url.Parse(%v) = %v", server.URL, err)
+	}
+	platform := v1.Platform{
+		Architecture: "not-real-arch",
+		OS:           "not-real-os",
+	}
+	tag := mustNewTag(t, fmt.Sprintf("%s/%s:latest", u.Host, expectedRepo))
+	if _, err := Image(tag, WithPlatform(platform)); err == nil {
+		t.Errorf("Image succeeded, wanted err")
 	}
 }

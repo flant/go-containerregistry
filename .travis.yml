@@ -6,13 +6,16 @@ language:
   - go
 
 go:
-  - "1.10"
   - "1.11"
+  - "1.12"
 
 git:
   depth: 1
 
 install: true
+
+services:
+  - docker
 
 script:
   # Verify that all source files are correctly formatted.
@@ -23,6 +26,8 @@ script:
 
   # Verify that generated crane docs are up-to-date.
   - mkdir -p /tmp/gendoc && go run cmd/crane/help/main.go --dir /tmp/gendoc && diff -Naur /tmp/gendoc/ cmd/crane/doc/
+
+  - cmd/registry/test.sh
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

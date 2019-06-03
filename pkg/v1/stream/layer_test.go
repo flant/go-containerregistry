@@ -24,8 +24,9 @@ import (
 	"strings"
 	"testing"
 
-	v1 "github.com/flant/go-containerregistry/pkg/v1"
-	"github.com/flant/go-containerregistry/pkg/v1/tarball"
+	v1 "github.com/google/go-containerregistry/pkg/v1"
+	"github.com/google/go-containerregistry/pkg/v1/tarball"
+	"github.com/google/go-containerregistry/pkg/v1/types"
 )
 
 func TestStreamVsBuffer(t *testing.T) {
@@ -86,7 +87,7 @@ func TestStreamVsBuffer(t *testing.T) {
 }
 
 func TestLargeStream(t *testing.T) {
-	var n, wantSize int64 = 100000000, 100007653 // "Compressing" n random bytes results in this many bytes.
+	var n, wantSize int64 = 10000000, 10000788 // "Compressing" n random bytes results in this many bytes.
 	sl := NewLayer(ioutil.NopCloser(io.LimitReader(rand.Reader, n)))
 	rc, err := sl.Compressed()
 	if err != nil {
@@ -112,7 +113,7 @@ func TestLargeStream(t *testing.T) {
 	if size, err := sl.Size(); err != nil {
 		t.Errorf("Size: %v", err)
 	} else if size != wantSize {
-		t.Errorf("Size got %d, want %d", size, n)
+		t.Errorf("Size got %d, want %d", size, wantSize)
 	}
 }
 
@@ -137,6 +138,9 @@ func TestStreamableLayerFromTarball(t *testing.T) {
 					return err
 				}
 			}
+			if err := tw.Close(); err != nil {
+				return err
+			}
 			return nil
 		}())
 	}()
@@ -153,7 +157,7 @@ func TestStreamableLayerFromTarball(t *testing.T) {
 		t.Fatalf("Close: %v", err)
 	}
 
-	wantDigest := "sha256:f53d6a164ab476294212843f267740bd12f79e00abd8050c24ce8a9bceaa36b0"
+	wantDigest := "sha256:ed80efd7e7e884fb59db568f234332283b341b96155e872d638de42d55a34198"
 	if got, err := l.Digest(); err != nil {
 		t.Errorf("Digest: %v", err)
 	} else if got.String() != wantDigest {
@@ -196,5 +200,18 @@ func TestConsumed(t *testing.T) {
 
 	if _, err := l.Compressed(); err != ErrConsumed {
 		t.Errorf("Compressed() after consuming; got %v, want %v", err, ErrConsumed)
+	}
+}
+
+func TestMediaType(t *testing.T) {
+	l := NewLayer(ioutil.NopCloser(strings.NewReader("hello")))
+	mediaType, err := l.MediaType()
+
+	if err != nil {
+		t.Fatalf("MediaType(): %v", err)
+	}
+
+	if got, want := mediaType, types.DockerLayer; got != want {
+		t.Errorf("MediaType(): want %q, got %q", want, got)
 	}
 }

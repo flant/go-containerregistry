@@ -25,6 +25,7 @@ import (
 
 func init() { Root.AddCommand(NewCmdList()) }
 
+// NewCmdList creates a new cobra.Command for the ls subcommand.
 func NewCmdList() *cobra.Command {
 	recursive := false
 	cmd := &cobra.Command{
@@ -42,7 +43,7 @@ func NewCmdList() *cobra.Command {
 }
 
 func ls(root string, recursive bool) {
-	repo, err := name.NewRepository(root, name.WeakValidation)
+	repo, err := name.NewRepository(root)
 	if err != nil {
 		log.Fatalln(err)
 	}

@@ -22,6 +22,7 @@ import (
 	"github.com/flant/go-containerregistry/pkg/name"
 )
 
+// Keychain exports an instance of the google Keychain.
 var Keychain authn.Keychain = &googleKeychain{}
 
 type googleKeychain struct{}

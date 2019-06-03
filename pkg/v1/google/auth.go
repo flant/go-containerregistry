@@ -19,6 +19,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"log"
 	"os"
 	"os/exec"
 	"time"
@@ -30,7 +31,7 @@ import (
 
 const cloudPlatformScope = "https://www.googleapis.com/auth/cloud-platform"
 
-// Exposed so we can test this.
+// GetGcloudCmd is exposed so we can test this.
 var GetGcloudCmd = func() *exec.Cmd {
 	// This is odd, but basically what docker-credential-gcr does.
 	//
@@ -58,6 +59,13 @@ func NewEnvAuthenticator() (authn.Authenticator, error) {
 // NewGcloudAuthenticator returns an oauth2.TokenSource that generates access
 // tokens by shelling out to the gcloud sdk.
 func NewGcloudAuthenticator() (authn.Authenticator, error) {
+	if _, err := exec.LookPath("gcloud"); err != nil {
+		// TODO(#390): Use better logger.
+		// gcloud is not available, fall back to anonymous
+		log.Println("gcloud binary not found")
+		return authn.Anonymous, nil
+	}
+
 	ts := gcloudSource{GetGcloudCmd()}
 
 	// Attempt to fetch a token to ensure gcloud is installed and we can run it.

@@ -26,6 +26,7 @@ import (
 
 func init() { Root.AddCommand(NewCmdGc()) }
 
+// NewCmdGc creates a new cobra.Command for the gc subcommand.
 func NewCmdGc() *cobra.Command {
 	recursive := false
 	cmd := &cobra.Command{
@@ -43,7 +44,7 @@ func NewCmdGc() *cobra.Command {
 }
 
 func gc(root string, recursive bool) {
-	repo, err := name.NewRepository(root, name.WeakValidation)
+	repo, err := name.NewRepository(root)
 	if err != nil {
 		log.Fatalln(err)
 	}
