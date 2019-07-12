@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/google/go-containerregistry/pkg/registry"
+	"github.com/flant/go-containerregistry/pkg/registry"
 )
 
 func TestCalls(t *testing.T) {

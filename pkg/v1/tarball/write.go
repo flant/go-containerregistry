@@ -22,8 +22,8 @@ import (
 	"io"
 	"os"
 
-	"github.com/google/go-containerregistry/pkg/name"
-	v1 "github.com/google/go-containerregistry/pkg/v1"
+	"github.com/flant/go-containerregistry/pkg/name"
+	v1 "github.com/flant/go-containerregistry/pkg/v1"
 )
 
 // WriteToFile writes in the compressed format to a tarball, on disk.

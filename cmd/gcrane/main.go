@@ -18,8 +18,8 @@ import (
 	"fmt"
 	"os"
 
-	crane "github.com/google/go-containerregistry/cmd/crane/cmd"
-	"github.com/google/go-containerregistry/pkg/gcrane"
+	crane "github.com/flant/go-containerregistry/cmd/crane/cmd"
+	"github.com/flant/go-containerregistry/pkg/gcrane"
 )
 
 func main() {

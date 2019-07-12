@@ -10,7 +10,7 @@ import (
 )
 
 // Version can be set via:
-// -ldflags="-X 'github.com/google/go-containerregistry/pkg/crane.Version=$TAG'"
+// -ldflags="-X 'github.com/flant/go-containerregistry/pkg/crane.Version=$TAG'"
 var Version string
 
 func init() { Root.AddCommand(NewCmdVersion()) }

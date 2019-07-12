@@ -18,8 +18,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/google/go-containerregistry/pkg/crane"
-	"github.com/google/go-containerregistry/pkg/v1/mutate"
+	"github.com/flant/go-containerregistry/pkg/crane"
+	"github.com/flant/go-containerregistry/pkg/v1/mutate"
 	"github.com/spf13/cobra"
 )
 

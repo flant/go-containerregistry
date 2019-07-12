@@ -23,7 +23,7 @@ import (
 	"time"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/google/go-containerregistry/pkg/name"
+	"github.com/flant/go-containerregistry/pkg/name"
 )
 
 func mustParseDuration(t *testing.T, d string) time.Duration {

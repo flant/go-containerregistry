@@ -17,7 +17,7 @@ package transport
 import (
 	"net/http"
 
-	"github.com/google/go-containerregistry/pkg/authn"
+	"github.com/flant/go-containerregistry/pkg/authn"
 )
 
 type basicTransport struct {

@@ -4,8 +4,8 @@ import (
 	"errors"
 	"testing"
 
-	v1 "github.com/google/go-containerregistry/pkg/v1"
-	"github.com/google/go-containerregistry/pkg/v1/random"
+	v1 "github.com/flant/go-containerregistry/pkg/v1"
+	"github.com/flant/go-containerregistry/pkg/v1/random"
 )
 
 // TestCache tests that the cache is populated when LayerByDigest is called.

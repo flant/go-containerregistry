@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/google/go-containerregistry/cmd/crane/cmd"
+	"github.com/flant/go-containerregistry/cmd/crane/cmd"
 	"github.com/spf13/cobra"
 	"github.com/spf13/cobra/doc"
 )

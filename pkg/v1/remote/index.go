@@ -19,10 +19,10 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/google/go-containerregistry/pkg/name"
-	v1 "github.com/google/go-containerregistry/pkg/v1"
-	"github.com/google/go-containerregistry/pkg/v1/partial"
-	"github.com/google/go-containerregistry/pkg/v1/types"
+	"github.com/flant/go-containerregistry/pkg/name"
+	v1 "github.com/flant/go-containerregistry/pkg/v1"
+	"github.com/flant/go-containerregistry/pkg/v1/partial"
+	"github.com/flant/go-containerregistry/pkg/v1/types"
 )
 
 // remoteIndex accesses an index from a remote registry

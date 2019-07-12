@@ -18,12 +18,12 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/google/go-containerregistry/pkg/crane"
-	"github.com/google/go-containerregistry/pkg/name"
-	"github.com/google/go-containerregistry/pkg/v1"
-	"github.com/google/go-containerregistry/pkg/v1/daemon"
-	"github.com/google/go-containerregistry/pkg/v1/tarball"
-	"github.com/google/go-containerregistry/pkg/v1/validate"
+	"github.com/flant/go-containerregistry/pkg/crane"
+	"github.com/flant/go-containerregistry/pkg/name"
+	"github.com/flant/go-containerregistry/pkg/v1"
+	"github.com/flant/go-containerregistry/pkg/v1/daemon"
+	"github.com/flant/go-containerregistry/pkg/v1/tarball"
+	"github.com/flant/go-containerregistry/pkg/v1/validate"
 	"github.com/spf13/cobra"
 )
 

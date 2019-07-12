@@ -27,7 +27,7 @@ import (
 	"strings"
 
 	"github.com/google/go-cmp/cmp"
-	v1 "github.com/google/go-containerregistry/pkg/v1"
+	v1 "github.com/flant/go-containerregistry/pkg/v1"
 )
 
 // Image validates that img does not violate any invariants of the image format.

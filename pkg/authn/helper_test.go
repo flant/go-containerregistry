@@ -19,7 +19,7 @@ import (
 	"os/exec"
 	"testing"
 
-	"github.com/google/go-containerregistry/pkg/name"
+	"github.com/flant/go-containerregistry/pkg/name"
 )
 
 var (

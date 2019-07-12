@@ -17,8 +17,8 @@ package cmd
 import (
 	"log"
 
-	"github.com/google/go-containerregistry/pkg/crane"
-	"github.com/google/go-containerregistry/pkg/v1/cache"
+	"github.com/flant/go-containerregistry/pkg/crane"
+	"github.com/flant/go-containerregistry/pkg/v1/cache"
 	"github.com/spf13/cobra"
 )
 

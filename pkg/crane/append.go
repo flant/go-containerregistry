@@ -17,9 +17,9 @@ package crane
 import (
 	"fmt"
 
-	v1 "github.com/google/go-containerregistry/pkg/v1"
-	"github.com/google/go-containerregistry/pkg/v1/mutate"
-	"github.com/google/go-containerregistry/pkg/v1/tarball"
+	v1 "github.com/flant/go-containerregistry/pkg/v1"
+	"github.com/flant/go-containerregistry/pkg/v1/mutate"
+	"github.com/flant/go-containerregistry/pkg/v1/tarball"
 )
 
 // Append reads a layer from path and appends it the the v1.Image base.

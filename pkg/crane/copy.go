@@ -18,10 +18,10 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/google/go-containerregistry/pkg/authn"
-	"github.com/google/go-containerregistry/pkg/name"
-	"github.com/google/go-containerregistry/pkg/v1/remote"
-	"github.com/google/go-containerregistry/pkg/v1/types"
+	"github.com/flant/go-containerregistry/pkg/authn"
+	"github.com/flant/go-containerregistry/pkg/name"
+	"github.com/flant/go-containerregistry/pkg/v1/remote"
+	"github.com/flant/go-containerregistry/pkg/v1/types"
 )
 
 // Copy copies a remote image or index from src to dst.

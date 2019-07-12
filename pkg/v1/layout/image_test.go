@@ -17,9 +17,9 @@ package layout
 import (
 	"testing"
 
-	v1 "github.com/google/go-containerregistry/pkg/v1"
-	"github.com/google/go-containerregistry/pkg/v1/types"
-	"github.com/google/go-containerregistry/pkg/v1/validate"
+	v1 "github.com/flant/go-containerregistry/pkg/v1"
+	"github.com/flant/go-containerregistry/pkg/v1/types"
+	"github.com/flant/go-containerregistry/pkg/v1/validate"
 )
 
 var (

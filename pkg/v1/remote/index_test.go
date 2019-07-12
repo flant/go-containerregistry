@@ -23,9 +23,9 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	v1 "github.com/google/go-containerregistry/pkg/v1"
-	"github.com/google/go-containerregistry/pkg/v1/random"
-	"github.com/google/go-containerregistry/pkg/v1/types"
+	v1 "github.com/flant/go-containerregistry/pkg/v1"
+	"github.com/flant/go-containerregistry/pkg/v1/random"
+	"github.com/flant/go-containerregistry/pkg/v1/types"
 )
 
 func randomIndex(t *testing.T) v1.ImageIndex {

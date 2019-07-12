@@ -18,7 +18,7 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/google/go-containerregistry/pkg/internal/retry"
+	"github.com/flant/go-containerregistry/pkg/internal/retry"
 	"k8s.io/apimachinery/pkg/util/wait"
 )
 

@@ -17,8 +17,8 @@ package layout
 import (
 	"testing"
 
-	"github.com/google/go-containerregistry/pkg/v1/types"
-	"github.com/google/go-containerregistry/pkg/v1/validate"
+	"github.com/flant/go-containerregistry/pkg/v1/types"
+	"github.com/flant/go-containerregistry/pkg/v1/validate"
 )
 
 func TestIndex(t *testing.T) {

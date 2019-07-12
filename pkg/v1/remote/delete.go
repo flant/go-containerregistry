@@ -20,8 +20,8 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/google/go-containerregistry/pkg/name"
-	"github.com/google/go-containerregistry/pkg/v1/remote/transport"
+	"github.com/flant/go-containerregistry/pkg/name"
+	"github.com/flant/go-containerregistry/pkg/v1/remote/transport"
 )
 
 // Delete removes the specified image reference from the remote registry.

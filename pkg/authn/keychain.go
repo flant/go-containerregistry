@@ -24,7 +24,7 @@ import (
 	"path/filepath"
 	"runtime"
 
-	"github.com/google/go-containerregistry/pkg/name"
+	"github.com/flant/go-containerregistry/pkg/name"
 )
 
 // Keychain is an interface for resolving an image reference to a credential.

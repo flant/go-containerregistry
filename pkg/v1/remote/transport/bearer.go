@@ -21,8 +21,8 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/google/go-containerregistry/pkg/authn"
-	"github.com/google/go-containerregistry/pkg/name"
+	"github.com/flant/go-containerregistry/pkg/authn"
+	"github.com/flant/go-containerregistry/pkg/name"
 )
 
 type bearerTransport struct {

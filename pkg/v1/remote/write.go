@@ -24,12 +24,12 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/google/go-containerregistry/pkg/internal/retry"
-	"github.com/google/go-containerregistry/pkg/name"
-	v1 "github.com/google/go-containerregistry/pkg/v1"
-	"github.com/google/go-containerregistry/pkg/v1/partial"
-	"github.com/google/go-containerregistry/pkg/v1/remote/transport"
-	"github.com/google/go-containerregistry/pkg/v1/types"
+	"github.com/flant/go-containerregistry/pkg/internal/retry"
+	"github.com/flant/go-containerregistry/pkg/name"
+	v1 "github.com/flant/go-containerregistry/pkg/v1"
+	"github.com/flant/go-containerregistry/pkg/v1/partial"
+	"github.com/flant/go-containerregistry/pkg/v1/remote/transport"
+	"github.com/flant/go-containerregistry/pkg/v1/types"
 	"golang.org/x/sync/errgroup"
 	"k8s.io/apimachinery/pkg/util/wait"
 )

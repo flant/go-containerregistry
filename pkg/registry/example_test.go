@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http/httptest"
 
-	"github.com/google/go-containerregistry/pkg/registry"
+	"github.com/flant/go-containerregistry/pkg/registry"
 )
 
 func Example() {

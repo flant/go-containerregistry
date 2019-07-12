@@ -22,9 +22,9 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/google/go-containerregistry/pkg/authn"
-	"github.com/google/go-containerregistry/pkg/name"
-	"github.com/google/go-containerregistry/pkg/v1/remote/transport"
+	"github.com/flant/go-containerregistry/pkg/authn"
+	"github.com/flant/go-containerregistry/pkg/name"
+	"github.com/flant/go-containerregistry/pkg/v1/remote/transport"
 )
 
 // ListerOption is a functional option for List and Walk.
