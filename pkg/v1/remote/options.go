@@ -15,7 +15,6 @@
 package remote
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/google/go-containerregistry/pkg/authn"
@@ -51,9 +50,6 @@ func makeOptions(reg name.Registry, opts ...Option) (*options, error) {
 		auth, err := o.keychain.Resolve(reg)
 		if err != nil {
 			return nil, err
-		}
-		if auth == authn.Anonymous {
-			log.Println("No matching credentials were found, falling back on anonymous")
 		}
 		o.auth = auth
 	}
